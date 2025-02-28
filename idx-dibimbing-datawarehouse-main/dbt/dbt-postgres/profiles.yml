@@ -1,0 +1,13 @@
+dibimbing:
+  target: dev_postgres
+  outputs:
+    dev_postgres:
+      type: postgres
+      host: "{{ env_var('POSTGRES_HOST') }}"
+      user: "{{ env_var('POSTGRES_USER') }}"
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      port: "{{ env_var('POSTGRES_PORT') | int }}"
+      dbname: "{{ env_var('POSTGRES_DB_NEW') }}"
+      schema: "{{ env_var('POSTGRES_SCHEMA') }}"
+      threads: 4
+

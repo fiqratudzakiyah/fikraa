@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0  # Official MySQL image (specific version for stability)
+    container_name: ${MYSQL_CONTAINER_NAME:-mysql_db}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}  # Change this in production!
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mydatabase}        # Optional default database
+      MYSQL_USER: ${MYSQL_USER:-myuser}                # Optional default user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mypassword}        # Optional user password
+    ports:
+      - ${MYSQL_PORT}:3306
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persistent data storage
+
+networks:
+  data-network:
+    name: data-network
+    external: true
+
+volumes:
+  mysql_data:  # Named volume for data persistence
