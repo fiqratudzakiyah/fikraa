@@ -4,30 +4,23 @@ from datetime import datetime
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import os
 
-# Atur backend agar tidak error di Docker 
 plt.switch_backend('Agg')
 
-# Paths
 RAW_PATH = "/opt/airflow/dags/data/student_depression.csv"
 CLEANED_PATH = "/opt/airflow/dags/data/cleaned_student_depression.csv"
 PLOT_PATH = "/opt/airflow/dags/data/correlation_matrix.png"
 
-# Fungsi extract dan clean data
 def extract_data():
     print("Starting data extraction and cleaning...")
-    
-    df = pd.read_csv('student_depression.csv')
+    df = pd.read_csv(RAW_PATH)
     df.dropna(inplace=True)
-    df.to_csv('cleaned_student_depression', index=False)
+    df.to_csv(CLEANED_PATH, index=False)
     print("Data cleaned and saved successfully.")
 
-# Fungsi analisis dan visualisasi
 def analyze_data():
     print("Starting data analysis and plotting...")
-  
-    df = pd.read_csv('cleaned_student_depression')
+    df = pd.read_csv(CLEANED_PATH)
     correlation_matrix = df.corr(numeric_only=True)
 
     plt.figure(figsize=(10, 8))
